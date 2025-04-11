@@ -14,7 +14,7 @@
     "libiconv":   "latest",
     "pkg-config": "latest",
     "openssl": {
-      "version": "latest",
+      "version": "3.4.1",
       "outputs": ["out", "dev"]
     }
   },
