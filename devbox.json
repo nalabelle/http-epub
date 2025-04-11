@@ -25,7 +25,7 @@
     "cmake": "latest",
     "ninja": "latest",
     "clang": "latest",
-    "llvm": "latest",
+    "llvm": "11.1.0",
     "unzip": "latest"
   },
   "shell": {
