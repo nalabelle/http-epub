@@ -20,10 +20,10 @@
         "dev"
       ]
     },
-    "android-tools": "latest",
-    "gcc": "latest",
-    "cmake": "latest",
-    "ninja": "latest",
+    "android-tools": "31.0.3",
+    "gcc": "4.9.4",
+    "cmake": "3.31.5",
+    "ninja": "1.12.1",
     "clang": "latest",
     "llvm": "latest",
     "unzip": "latest"
