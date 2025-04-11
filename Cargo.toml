@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2024"
 description = "A tool to convert websites to EPUB format"
 
+[lib]
+name = "http_epub"
+path = "src/lib.rs"
+
 [dependencies]
 reqwest = { version = "0.12", features = ["blocking"] }
 clap = { version = "4.4", features = ["derive"] }
