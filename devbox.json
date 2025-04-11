@@ -24,7 +24,7 @@
     "gcc": "4.9.4",
     "cmake": "3.31.5",
     "ninja": "1.12.1",
-    "clang": "latest",
+    "clang": "19.1.7",
     "llvm": "11.1.0",
     "unzip": "latest"
   },
