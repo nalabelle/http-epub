@@ -1,0 +1,6 @@
+[target.aarch64-linux-android]
+linker = "aarch64-linux-android21-clang"
+ar = "llvm-ar"
+
+[env]
+CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER = { value = "${ANDROID_NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang", relative = false }

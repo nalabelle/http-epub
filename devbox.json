@@ -1,26 +1,44 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
   "env": {
-    "CARGO_HOME":        "${DEVBOX_PROJECT_ROOT}/.devbox/.data/cargo",
-    "RUSTUP_HOME":       "${DEVBOX_PROJECT_ROOT}/.devbox/.data/rustup",
-    "LIBRARY_PATH":      "${LIBRARY_PATH}:${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default/lib",
+    "CARGO_HOME": "${DEVBOX_PROJECT_ROOT}/.devbox/.data/cargo",
+    "RUSTUP_HOME": "${DEVBOX_PROJECT_ROOT}/.devbox/.data/rustup",
+    "LIBRARY_PATH": "${LIBRARY_PATH}:${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default/lib",
     "LLVM_PROFILE_FILE": "${DEVBOX_PROJECT_ROOT}/.devbox/.data/llvm",
-    "PATH":              "${PATH}:${DEVBOX_PROJECT_ROOT}/bin",
-    "OPENSSL_DIR":       "${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default",
-    "PKG_CONFIG_PATH":   "${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default/lib/pkgconfig"
+    "PATH": "${PATH}:${DEVBOX_PROJECT_ROOT}/bin",
+    "OPENSSL_DIR": "${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default",
+    "PKG_CONFIG_PATH": "${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default/lib/pkgconfig"
   },
   "packages": {
-    "rustup":     "1.27.1",
-    "libiconv":   "latest",
+    "rustup": "1.27.1",
+    "libiconv": "latest",
     "pkg-config": "latest",
     "openssl": {
       "version": "3.4.1",
-      "outputs": ["out", "dev"]
-    }
+      "outputs": [
+        "out",
+        "dev"
+      ]
+    },
+    "android-tools": "latest",
+    "gcc": "latest",
+    "cmake": "latest",
+    "ninja": "latest",
+    "clang": "latest",
+    "llvm": "latest",
+    "unzip": "latest"
   },
   "shell": {
     "init_hook": [
       "rustup default stable"
-    ]
+    ],
+    "scripts": {
+      "setup-android": [
+        "${DEVBOX_PROJECT_ROOT}/bin/setup-android"
+      ],
+      "build-android-arm64": [
+        "${DEVBOX_PROJECT_ROOT}/bin/build-android-arm64"
+      ]
+    }
   }
 }

@@ -57,6 +57,38 @@ http-epub --url https://example.com --title "My Custom Title"
 - CSS styling from the original website is not preserved
 - Image support is limited to standard formats (JPEG, PNG, GIF, SVG, WebP)
 
+## Cross-Compilation for Android ARM64
+
+This project can be cross-compiled for Android ARM64 devices using devbox. The setup process has been automated with scripts in the `bin` directory.
+
+### Prerequisites
+
+- Devbox installed on your system
+
+### Setup
+
+1. Run the setup script to download and install the Android NDK and cargo-ndk:
+
+```bash
+devbox run setup-android
+```
+
+This script will:
+- Download and extract the Android NDK r26c to `~/Android/Sdk/ndk/`
+- Install cargo-ndk if not already installed
+
+### Building for Android ARM64
+
+To build for ARM64 (aarch64):
+
+```bash
+devbox run build-android-arm64
+```
+
+The compiled binary will be available at:
+`target/aarch64-linux-android/release/http-epub`
+
+
 ## License
 
 MIT
