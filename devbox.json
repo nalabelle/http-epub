@@ -4,11 +4,11 @@
     "PATH": "${PATH}:${DEVBOX_PROJECT_ROOT}/bin"
   },
   "packages": {
-    "rustup":            "1.27.1",
+    "rustup":            "1.28.2",
     "libiconv":          "latest",
-    "static-web-server": "latest",
+    "static-web-server": "2.36.1",
     "libxml2": {
-      "version": "latest",
+      "version": "2.13.8",
       "outputs": ["out", "dev"]
     }
   },
