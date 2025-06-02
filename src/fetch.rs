@@ -1,62 +1,70 @@
 use anyhow::{Context, Result, anyhow};
-use regex::Regex;
 use reqwest::blocking::Client;
-use select::document::Document;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
+use tracing::{debug, info, warn};
 use url::Url;
 use uuid::Uuid;
 
+#[derive(Clone, Debug)]
+pub struct DownloadedImage {
+    pub local_path: String,
+    pub data: Vec<u8>,
+    pub mime_type: &'static str,
+}
+
+#[derive(Clone, Debug)]
 pub struct FetchedContent {
-    pub document: Document,
+    pub original_url: Url,
     pub url: Url,
-    pub images: HashMap<String, (String, Vec<u8>, &'static str)>
+    pub html_string: String,
 }
 
 pub struct Fetcher {
-    client: Client
+    client: Client,
+}
+
+impl Default for Fetcher {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Fetcher {
     pub fn new() -> Self {
         Self {
-            client: Client::new()
+            client: Client::new(),
         }
     }
-    
-    pub fn fetch_content(&self, url_str: &str) -> Result<FetchedContent> {
-        // Parse the URL
-        let mut url = Url::parse(url_str)
-            .context("Failed to parse URL")?;
-        
-        // Always use print-friendly URL
-        url = self.get_print_friendly_url(&url);
-        println!("Using print-friendly URL: {}", url);
-        
+
+    pub fn fetch_content(&self, url: &Url) -> Result<FetchedContent> {
+        let pf_url = self.get_print_friendly_url(url);
+
         // Fetch the website content
-        println!("Fetching content from {}...", url);
-        let response = self.client.get(url.clone())
+        info!(url = %pf_url, "Fetching main HTML content...");
+        let response = self
+            .client
+            .get(pf_url.clone())
             .send()
             .context("Failed to fetch website content")?;
-        
-        let html = response.text()
-            .context("Failed to extract text from response")?;
-        
-        // Parse HTML
-        let document = Document::from(html.as_str());
-        
-        // Extract and download images
-        println!("Fetching images...");
-        let images = self.extract_and_download_images(&html, &url)?;
-        
-        Ok(FetchedContent { document, url, images })
-    }
 
+        let html = response
+            .text()
+            .context("Failed to extract text from response")?;
+
+        debug!(html_len = html.len(), "Main HTML content fetched.");
+
+        Ok(FetchedContent {
+            original_url: url.clone(),
+            url: pf_url,
+            html_string: html,
+        })
+    }
 
     /// Converts a regular URL to a print-friendly version if available
     pub fn get_print_friendly_url(&self, url: &Url) -> Url {
         let host = url.host_str().unwrap_or("");
         let _path = url.path();
-        
+
         // Handle specific websites with known print-friendly versions
         if host.contains("wikipedia.org") {
             // Wikipedia: The printable version is deprecated, so we use the mobile version
@@ -91,64 +99,66 @@ impl Fetcher {
             }
             return print_url;
         }
-        
+
         // For other websites, return the original URL
         url.clone()
     }
 
-    pub fn extract_and_download_images(
+    // Renamed from extract_and_download_images
+    // Now takes a HashSet of specific Url objects to download and returns a map with DownloadedImage structs.
+    pub fn download_image_list(
         &self,
-        html_content: &str, 
-        base_url: &Url
-    ) -> Result<HashMap<String, (String, Vec<u8>, &'static str)>> {
+        image_urls: &HashSet<Url>,
+    ) -> Result<HashMap<String, DownloadedImage>> {
         let mut image_map = HashMap::new();
-        
-        // Find all image tags
-        let img_regex = Regex::new(r#"<img[^>]*src=["']([^"']+)["'][^>]*>"#).unwrap();
-        
-        for cap in img_regex.captures_iter(html_content) {
-            let img_src = cap.get(1).unwrap().as_str();
-            
-            // Skip data URLs
-            if img_src.starts_with("data:") {
-                continue;
-            }
-            
-            // Convert relative URLs to absolute
-            let img_url = match base_url.join(img_src) {
-                Ok(url) => url,
-                Err(e) => {
-                    eprintln!("Warning: Failed to parse image URL {}: {}", img_src, e);
-                    continue;
+        info!(
+            count = image_urls.len(),
+            "Starting to download identified images..."
+        );
+
+        for url in image_urls {
+            debug!(url = %url, "Attempting to download image.");
+            match self.download_image(url) {
+                Ok((image_binary_data, image_mime_type)) => {
+                    let base_name = self.generate_unique_filename(url);
+                    let extension = self.mime_type_to_extension(image_mime_type);
+                    let local_img_path = format!("images/{}.{}", base_name, extension);
+
+                    let downloaded_image_info = DownloadedImage {
+                        local_path: local_img_path.clone(),
+                        data: image_binary_data,
+                        mime_type: image_mime_type,
+                    };
+
+                    debug!(
+                        original_url = %url,
+                        local_path = local_img_path,
+                        "Image downloaded successfully."
+                    );
+                    image_map.insert(url.as_str().to_string(), downloaded_image_info);
                 }
-            };
-            
-            // Download image
-            match self.download_image(&img_url) {
-                Ok((data, mime_type)) => {
-                    // Generate a unique filename
-                    let base_name = self.generate_unique_filename(&img_url);
-                    let extension = self.mime_type_to_extension(mime_type);
-                    let img_path = format!("images/{}.{}", base_name, extension);
-                    
-                    // Add to map
-                    image_map.insert(img_src.to_string(), (img_path, data, mime_type));
-                },
                 Err(e) => {
-                    eprintln!("Warning: Failed to download image {}: {}", img_url, e);
+                    warn!(url = %url, error = %e, "Failed to download image");
                 }
             }
         }
-        
+        info!(
+            downloaded_count = image_map.len(),
+            "Finished downloading images."
+        );
         Ok(image_map)
     }
 
     pub fn generate_unique_filename(&self, url: &Url) -> String {
         // Extract the filename from the URL or generate a unique ID
         url.path_segments()
-            .and_then(|segments| segments.last())
+            .and_then(|mut segments| segments.next_back())
             .and_then(|name| {
-                if name.is_empty() { None } else { Some(name.to_string()) }
+                if name.is_empty() {
+                    None
+                } else {
+                    Some(name.to_string())
+                }
             })
             .unwrap_or_else(|| Uuid::new_v4().to_string())
     }
@@ -160,27 +170,33 @@ impl Fetcher {
             "image/gif" => "gif",
             "image/svg+xml" => "svg",
             "image/webp" => "webp",
-            _ => "jpg",  // Default
+            _ => "jpg", // Default
         }
     }
 
     pub fn download_image(&self, img_url: &Url) -> Result<(Vec<u8>, &'static str)> {
         // Fetch the image
-        let response = self.client.get(img_url.clone())
+        let response = self
+            .client
+            .get(img_url.clone())
             .send()
             .context(format!("Failed to fetch image from {}", img_url))?;
-        
+
         // Check if the request was successful
         if !response.status().is_success() {
-            return Err(anyhow!("Failed to download image: HTTP status {}", response.status()));
+            return Err(anyhow!(
+                "Failed to download image: HTTP status {}",
+                response.status()
+            ));
         }
-        
+
         // Get content type
-        let content_type = response.headers()
+        let content_type = response
+            .headers()
             .get("content-type")
             .and_then(|v| v.to_str().ok())
             .unwrap_or("image/jpeg"); // Default to JPEG if no content type
-        
+
         // Determine MIME type
         let mime_type = match content_type {
             t if t.contains("jpeg") || t.contains("jpg") => "image/jpeg",
@@ -190,11 +206,12 @@ impl Fetcher {
             t if t.contains("webp") => "image/webp",
             _ => "image/jpeg", // Default
         };
-        
+
         // Read the image data
-        let data = response.bytes()
+        let data = response
+            .bytes()
             .context(format!("Failed to read image data from {}", img_url))?;
-        
+
         Ok((data.to_vec(), mime_type))
     }
 }

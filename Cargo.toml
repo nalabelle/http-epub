@@ -9,12 +9,11 @@ name = "http_epub"
 path = "src/lib.rs"
 
 [dependencies]
-reqwest = { version = "0.12", features = ["blocking"] }
+reqwest = { version = "0.12.18", default-features = false, features = ["blocking", "rustls-tls"]}
 clap = { version = "4.4", features = ["derive"] }
 html5ever = "0.31"
 markup5ever_rcdom = "0.3"
-select = "0.6"
-url = "2.4"
+url = { version = "2.5.4"}
 epub-builder = "0.8"
 anyhow = "1.0"
 tempfile = "3.8"
@@ -24,7 +23,11 @@ image = { version = "0.25", default-features = false, features = ["jpeg", "png",
 mime_guess = "2.0"
 regex = "1.10"
 uuid = { version = "1.6", features = ["v4"] }
-
-[features]
-default = []
-vendored-openssl = ["reqwest/native-tls-vendored"]
+ammonia = "3.3.0"
+article-extractor = "1.0.4"
+chrono = { version = "0.4", features = ["serde"] }
+maplit = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["fmt"] }
+tera = "1"
+dom_query = "0.19.1"

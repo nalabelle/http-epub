@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{title}}</title>
+    <style type="text/css">
+      body {
+        font-family: serif;
+        line-height: 1.5;
+        margin: 2em;
+      }
 
-<head>
-    <meta charset="UTF-8">
-    <title>{{TITLE}}</title>
-    <style>
-        body {
-            font-family: serif;
-            line-height: 1.5;
-            margin: 2em;
-        }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: sans-serif;
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+      }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: sans-serif;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    {{CONTENT}}
-</body>
-
+  <body>
+    {{content | safe}}
+  </body>
 </html>

@@ -1,5 +1,7 @@
 .devbox
 
 /target
+/dist
+/live
 
 *.epub

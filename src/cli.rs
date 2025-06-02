@@ -11,10 +11,6 @@ pub struct Args {
     /// Output file path (default: website_title.epub)
     #[arg(short, long)]
     pub output: Option<PathBuf>,
-
-    /// Title for the EPUB (default: extracted from website)
-    #[arg(short, long)]
-    pub title: Option<String>,
 }
 
 pub fn parse_args() -> Args {

@@ -1,0 +1,51 @@
+# Rust build artifacts
+target/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Node modules if any
+node_modules/
+
+# DevBox
+.devbox/
+
+# NDK downloads (we download fresh in Docker)
+android-ndk-*/
+
+# Documentation
+*.md
+LICENSE*
+
+# Docker files (only need the one we're building)
+Dockerfile.*
+docker-bake.hcl
+
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test outputs
+coverage/
+*.profraw

@@ -1,44 +1,18 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
   "env": {
-    "CARGO_HOME": "${DEVBOX_PROJECT_ROOT}/.devbox/.data/cargo",
-    "RUSTUP_HOME": "${DEVBOX_PROJECT_ROOT}/.devbox/.data/rustup",
-    "LIBRARY_PATH": "${LIBRARY_PATH}:${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default/lib",
-    "LLVM_PROFILE_FILE": "${DEVBOX_PROJECT_ROOT}/.devbox/.data/llvm",
-    "PATH": "${PATH}:${DEVBOX_PROJECT_ROOT}/bin",
-    "OPENSSL_DIR": "${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default",
-    "PKG_CONFIG_PATH": "${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default/lib/pkgconfig"
+    "PATH": "${PATH}:${DEVBOX_PROJECT_ROOT}/bin"
   },
   "packages": {
-    "rustup": "1.27.1",
-    "libiconv": "latest",
-    "pkg-config": "latest",
-    "openssl": {
-      "version": "3.4.1",
-      "outputs": [
-        "out",
-        "dev"
-      ]
-    },
-    "android-tools": "35.0.1",
-    "gcc": "14.2.0",
-    "cmake": "3.31.5",
-    "ninja": "1.12.1",
-    "clang": "19.1.7",
-    "llvm": "11.1.0",
-    "unzip": "latest"
+    "rustup":            "1.27.1",
+    "libiconv":          "latest",
+    "static-web-server": "latest",
+    "libxml2": {
+      "version": "latest",
+      "outputs": ["out", "dev"]
+    }
   },
   "shell": {
-    "init_hook": [
-      "rustup default stable"
-    ],
-    "scripts": {
-      "setup-android": [
-        "${DEVBOX_PROJECT_ROOT}/bin/setup-android"
-      ],
-      "build-android-arm64": [
-        "${DEVBOX_PROJECT_ROOT}/bin/build-android-arm64"
-      ]
-    }
+    "init_hook": ["rustup default stable"]
   }
 }

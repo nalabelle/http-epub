@@ -1,0 +1,96 @@
+# Dockerfile for Android cross-compilation
+FROM rust:1.87-slim
+
+# Install required system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    unzip \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    libxml2-dev \
+    zlib1g-dev \
+    cmake \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up Android NDK
+ENV ANDROID_NDK_HOME=/opt/android-ndk-r26c
+ENV NDK_HOME=$ANDROID_NDK_HOME
+ENV PATH=$PATH:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin
+
+# Download and install Android NDK
+RUN curl -L https://dl.google.com/android/repository/android-ndk-r26c-linux.zip -o /tmp/android-ndk.zip && \
+    echo "6d6e659834d28bb24ba7ae66148ad05115ebbad7dabed1af9b3265674774fcf6" /tmp/android-ndk.zip | sha256sum -c && \
+    unzip -q /tmp/android-ndk.zip -d /opt && \
+    rm /tmp/android-ndk.zip
+
+# Add Android target for Rust
+RUN rustup target add aarch64-linux-android
+
+# Enable parallel compilation and optimization
+ENV CARGO_BUILD_JOBS=4
+ENV CARGO_INCREMENTAL=1
+
+# Set up cross-compilation environment
+ENV CC_aarch64_linux_android=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang
+ENV CXX_aarch64_linux_android=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang++
+ENV AR_aarch64_linux_android=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
+ENV CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang
+
+# Build libxml2 for Android target
+ENV LIBXML2_VERSION=2.12.5
+RUN cd /tmp && \
+    curl -L https://download.gnome.org/sources/libxml2/2.12/libxml2-${LIBXML2_VERSION}.tar.xz -o libxml2.tar.xz && \
+    tar -xf libxml2.tar.xz && \
+    cd libxml2-${LIBXML2_VERSION} && \
+    export CC=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang && \
+    export CXX=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang++ && \
+    export AR=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar && \
+    export STRIP=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip && \
+    export RANLIB=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ranlib && \
+    export CFLAGS="-fPIC" && \
+    export LDFLAGS="-static" && \
+    ./configure \
+        --host=aarch64-linux-android \
+        --prefix=/opt/android-libxml2 \
+        --enable-static \
+        --disable-shared \
+        --without-python \
+        --without-readline \
+        --without-threads \
+        --without-history \
+        --without-debug \
+        --without-docbook \
+        --without-ftp \
+        --without-http \
+        --without-legacy \
+        --without-pattern \
+        --without-push \
+        --without-regexps \
+        --without-schemas \
+        --without-schematron \
+        --without-valid \
+        --without-writer \
+        --without-xinclude \
+        --with-xpath \
+        --without-xptr \
+        --without-modules \
+        --without-catalog \
+        --without-c14n \
+        --with-zlib=/usr && \
+    make -j$(nproc) && \
+    make install && \
+    cd / && rm -rf /tmp/libxml2*
+
+# Set up Android NDK toolchain for Rust
+ENV CC_aarch64_linux_android=/opt/android-ndk-r26c/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang
+ENV CXX_aarch64_linux_android=/opt/android-ndk-r26c/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang++
+ENV AR_aarch64_linux_android=/opt/android-ndk-r26c/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
+ENV CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER=/opt/android-ndk-r26c/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang
+
+# Create working directory
+WORKDIR /workspace
+
+# Default command
+CMD ["cargo", "build", "--target", "aarch64-linux-android", "--release"]

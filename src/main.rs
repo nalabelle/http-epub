@@ -1,47 +1,21 @@
-use anyhow::{Context, Result};
+use anyhow::Result;
 
-// Create modules
+// cli module is local to the binary
 mod cli;
-mod extract;
-mod epub;
-mod fetch;
+// epub, extract, fetch are part of the library (lib.rs) and accessed via http_epub::
 
 fn main() -> Result<()> {
+    // Initialize tracing subscriber
+    tracing_subscriber::fmt::init();
+
     // Parse command line arguments
     let args = cli::parse_args();
-    
-    // Create fetcher and fetch content
-    let fetcher = fetch::Fetcher::new();
-    let fetched = fetcher.fetch_content(&args.url)?;
-    
-    // Create extractor
-    let extractor = extract::Extractor::new(&fetched);
-    
-    // Process document - extract content, handle images, and get title
-    let extracted = extractor.process(args.title.as_ref())
-        .context("Failed to process document")?;
-    
-    // Create EPUB
-    println!("Creating EPUB...");
-    let output_path = epub::create_epub(&extracted, "http-epub", args.output.as_ref())
-        .context("Failed to create EPUB")?;
-    
+
+    // Call the library function to handle the core logic.
+    // The crate name is 'http-epub', so in code it's 'http_epub'.
+    println!("Processing URL: {}", args.url);
+    let output_path = http_epub::url_to_epub(&args.url, args.output.as_ref())?;
+
     println!("EPUB successfully created at: {}", output_path.display());
     Ok(())
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
