@@ -1,12 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
   "env": {
-    "PATH": "${PATH}:${DEVBOX_PROJECT_ROOT}/bin"
+    "PKG_CONFIG_PATH": "${DEVBOX_PROJECT_ROOT}/.devbox/nix/profile/default/lib/pkgconfig"
   },
   "packages": {
-    "rustup":            "1.28.2",
-    "libiconv":          "latest",
+    "rustup": "1.28.2",
+    "libiconv": "latest",
     "static-web-server": "2.36.1",
+    "pkg-config": "latest",
     "libxml2": {
       "version": "2.13.8",
       "outputs": ["out", "dev"]
