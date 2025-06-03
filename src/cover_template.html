@@ -45,17 +45,13 @@
   <body>
     <div>
       <h1>{{ title }}</h1>
-      {% if cover_image_local_path %}
+      {% if cover_image_local_path -%}
       <p><img src="{{ cover_image_local_path }}" alt="Cover Image" class="cover" /></p>
-      {% endif %}
+      {%- endif %}
       <div class="meta-info">
-        {% if author %}
-        <p>By: {{ author }}</p>
-        {% endif %}
+        <p>By: {{ author | default(value="Unknown Author") }}</p>
         <p>Source: <a href="{{ original_url }}">{{ original_url_domain }}</a></p>
-        {% if date_published_formatted %}
-        <p>Published: {{ date_published_formatted }}</p>
-        {% endif %}
+        <p>Published: {{ date_published_formatted | default(value="Date Unknown") }}</p>
         <p>Saved: {{ epubification_date_formatted }}</p>
       </div>
     </div>
