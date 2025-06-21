@@ -285,51 +285,51 @@
         }
       }
     },
-    "static-web-server@2.36.1": {
-      "last_modified": "2025-05-16T20:19:48Z",
-      "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#static-web-server",
+    "static-web-server@2.37.0": {
+      "last_modified": "2025-06-05T08:10:37Z",
+      "resolved": "github:NixOS/nixpkgs/ec62ae342c340d24289735e31eb9155261cd5fe7#static-web-server",
       "source": "devbox-search",
-      "version": "2.36.1",
+      "version": "2.37.0",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/708hz8pkiw08frwxxl4whrqzgsbwy6vg-static-web-server-2.36.1",
+              "path": "/nix/store/4y1p3ifj6d5rjscj3s43pbdhf4mc7ff9-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/708hz8pkiw08frwxxl4whrqzgsbwy6vg-static-web-server-2.36.1"
+          "store_path": "/nix/store/4y1p3ifj6d5rjscj3s43pbdhf4mc7ff9-static-web-server-2.37.0"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/310kkh8g4a36q0l2dcp467lnwy48iawk-static-web-server-2.36.1",
+              "path": "/nix/store/hr9mfh6nsf0mb2vy0fvsbp1g6vavbc83-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/310kkh8g4a36q0l2dcp467lnwy48iawk-static-web-server-2.36.1"
+          "store_path": "/nix/store/hr9mfh6nsf0mb2vy0fvsbp1g6vavbc83-static-web-server-2.37.0"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/ixjzp03hi3l54h8d5jsrn23pj9kdk529-static-web-server-2.36.1",
+              "path": "/nix/store/s25qcfjy7i0nz2cigmlspihj81bkhly5-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/ixjzp03hi3l54h8d5jsrn23pj9kdk529-static-web-server-2.36.1"
+          "store_path": "/nix/store/s25qcfjy7i0nz2cigmlspihj81bkhly5-static-web-server-2.37.0"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/m9ix5nadfzp0wxcgggxv463m9xsgwfk7-static-web-server-2.36.1",
+              "path": "/nix/store/85b6s8anw25hazpifyxiinnh6myr4kab-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/m9ix5nadfzp0wxcgggxv463m9xsgwfk7-static-web-server-2.36.1"
+          "store_path": "/nix/store/85b6s8anw25hazpifyxiinnh6myr4kab-static-web-server-2.37.0"
         }
       }
     }
