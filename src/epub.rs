@@ -84,7 +84,16 @@ pub fn create_epub(
     // Generate output path if not provided
     let mut final_path = match output_path_option {
         // Use renamed parameter
-        Some(path) => path.clone(),
+        Some(path) => {
+            if path.is_dir() {
+                // If it's a directory, append the generated filename
+                let filename = sanitize_filename::sanitize(format!("{}.epub", extracted.title));
+                path.join(filename)
+            } else {
+                // If it's not a directory, use the path as-is
+                path.clone()
+            }
+        }
         None => {
             let filename = sanitize_filename::sanitize(format!("{}.epub", extracted.title));
             PathBuf::from(filename)
@@ -107,9 +116,9 @@ pub fn create_epub(
 
         loop {
             let new_filename_str = if extension.is_empty() {
-                format!("{} ({})", original_stem, counter)
+                format!("{original_stem} ({counter})")
             } else {
-                format!("{} ({}).{}", original_stem, counter, extension)
+                format!("{original_stem} ({counter}).{extension}")
             };
             let new_path = final_path.with_file_name(new_filename_str);
             if !new_path.exists() {
@@ -199,9 +208,7 @@ pub fn create_epub(
         // If cover_image_local_path is Some and matches current image's local_path, it was the cover.
         let is_this_image_the_epub_cover = cover_image_local_path
             .as_ref()
-            .is_some_and(|cover_path_val| {
-                *cover_path_val == downloaded_image_info.local_path
-            });
+            .is_some_and(|cover_path_val| *cover_path_val == downloaded_image_info.local_path);
 
         if is_this_image_the_epub_cover {
             debug!(

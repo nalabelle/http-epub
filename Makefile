@@ -6,6 +6,11 @@ help:
 	@echo "  android-build      - Build Android binary (optimized with caching)"
 	@echo "  android-clean      - Clean build cache and artifacts"
 
+deps-install:
+	@echo "Installing dependencies..."
+	rustup default stable
+	cargo fetch
+
 # Standard Android build with caching
 android-build:
 	@echo "Building Android binary with optimizations..."

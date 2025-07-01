@@ -79,7 +79,7 @@ impl Fetcher {
                 if parts.len() == 2 {
                     let lang = parts[0];
                     let domain = parts[1];
-                    let mobile_host = format!("{}.m.{}", lang, domain);
+                    let mobile_host = format!("{lang}.m.{domain}");
                     print_url.set_host(Some(&mobile_host)).ok();
                 }
             }
@@ -93,7 +93,7 @@ impl Fetcher {
             // News sites often have a print parameter
             let mut print_url = url.clone();
             if let Some(query) = url.query() {
-                print_url.set_query(Some(&format!("{}&print=true", query)));
+                print_url.set_query(Some(&format!("{query}&print=true")));
             } else {
                 print_url.set_query(Some("print=true"));
             }
@@ -122,7 +122,7 @@ impl Fetcher {
                 Ok((image_binary_data, image_mime_type)) => {
                     let base_name = self.generate_unique_filename(url);
                     let extension = self.mime_type_to_extension(image_mime_type);
-                    let local_img_path = format!("images/{}.{}", base_name, extension);
+                    let local_img_path = format!("images/{base_name}.{extension}");
 
                     let downloaded_image_info = DownloadedImage {
                         local_path: local_img_path.clone(),
@@ -180,7 +180,7 @@ impl Fetcher {
             .client
             .get(img_url.clone())
             .send()
-            .context(format!("Failed to fetch image from {}", img_url))?;
+            .context(format!("Failed to fetch image from {img_url}"))?;
 
         // Check if the request was successful
         if !response.status().is_success() {
@@ -210,7 +210,7 @@ impl Fetcher {
         // Read the image data
         let data = response
             .bytes()
-            .context(format!("Failed to read image data from {}", img_url))?;
+            .context(format!("Failed to read image data from {img_url}"))?;
 
         Ok((data.to_vec(), mime_type))
     }

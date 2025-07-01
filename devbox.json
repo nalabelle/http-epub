@@ -11,9 +11,8 @@
     "libxml2": {
       "version": "2.13.8",
       "outputs": ["out", "dev"]
-    }
-  },
-  "shell": {
-    "init_hook": ["rustup default stable"]
+    },
+    "shellcheck": "0.10.0",
+    "pre-commit": "4.2.0"
   }
 }

@@ -299,15 +299,13 @@ impl Extractor {
                 match page_base_url.join(&url_str) {
                     Ok(abs_url) => {
                         format!(
-                            r#"<p><a href="{}" title="Video content">🎥 Watch Video: {}</a></p>"#,
-                            abs_url, abs_url
+                            r#"<p><a href="{abs_url}" title="Video content">🎥 Watch Video: {abs_url}</a></p>"#
                         )
                     }
                     Err(e) => {
                         warn!(src = url_str, base = %page_base_url, error = %e, "Failed to resolve video URL");
                         format!(
-                            r#"<p><a href="{}" title="Video content">🎥 Watch Video: {}</a></p>"#,
-                            url_str, url_str
+                            r#"<p><a href="{url_str}" title="Video content">🎥 Watch Video: {url_str}</a></p>"#
                         )
                     }
                 }

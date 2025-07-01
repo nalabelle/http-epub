@@ -27,21 +27,21 @@ target "android-build" {
     # Build stage
     FROM builder AS build-stage
     WORKDIR /workspace
-    
+
     # Copy dependency files first for better caching
     COPY Cargo.toml Cargo.lock ./
     RUN cargo fetch --target aarch64-linux-android
-    
+
     # Copy source code
     COPY src/ src/
-    
+
     # Build with cache mount for faster rebuilds
     RUN --mount=type=cache,target=/usr/local/cargo/registry \
         --mount=type=cache,target=/workspace/target \
         LIBXML2=/opt/android-libxml2/lib/libxml2.a \
         cargo build --target aarch64-linux-android --release && \
         cp target/aarch64-linux-android/release/http-epub /tmp/http-epub-android
-    
+
     # Final minimal stage with just the binary
     FROM scratch AS final
     COPY --from=build-stage /tmp/http-epub-android /http-epub-android
