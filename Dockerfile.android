@@ -1,5 +1,5 @@
 # Dockerfile for Android cross-compilation
-FROM rust:1.88-slim@sha256:d62f2139b1f523b4b048c59af6c5e8f2cbf6ab04e91ff87b2b9afb3fab3b930a
+FROM rust:1.88-slim@sha256:f3c8872e352f79b04d5f08bb1665468561c1402f4b4416e80e3cfa549ae008be
 
 # Install required system dependencies
 RUN apt-get update && apt-get install -y \
