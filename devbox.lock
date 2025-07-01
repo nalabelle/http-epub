@@ -48,107 +48,107 @@
         }
       }
     },
-    "libxml2@2.13.8": {
-      "last_modified": "2025-05-29T08:12:58Z",
-      "resolved": "github:NixOS/nixpkgs/3866ad91cfc172f08a6839def503d8fc2923c603#libxml2",
+    "libxml2@2.14.3": {
+      "last_modified": "2025-06-25T15:38:15Z",
+      "resolved": "github:NixOS/nixpkgs/61c0f513911459945e2cb8bf333dc849f1b976ff#libxml2",
       "source": "devbox-search",
-      "version": "2.13.8",
+      "version": "2.14.3",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "bin",
-              "path": "/nix/store/y9mb0jpx5gqndk3f94pi98y5is3sm8ra-libxml2-2.13.8-bin",
+              "path": "/nix/store/6y6sdd0y8dlg3q4h6cvgdgfx8vjlb2ks-libxml2-2.14.3-bin",
               "default": true
             },
             {
+              "name": "dev",
+              "path": "/nix/store/76d19vd4y1s42fb1f7j6fvcr9bqci2is-libxml2-2.14.3-dev"
+            },
+            {
               "name": "devdoc",
-              "path": "/nix/store/dl7115i6yladcqhn3mnwndcq9k84ashn-libxml2-2.13.8-devdoc"
+              "path": "/nix/store/1psv0iarbaij7d6rwy7c5l82b4mr0980-libxml2-2.14.3-devdoc"
             },
             {
               "name": "out",
-              "path": "/nix/store/fy1l8akbxlmi6z7k92aiyqnxf81xwf9h-libxml2-2.13.8"
-            },
-            {
-              "name": "dev",
-              "path": "/nix/store/xclr8fil4qjwicnb5cx3byzaaz1jmq7v-libxml2-2.13.8-dev"
+              "path": "/nix/store/zb3an22iv28l1c4ic0sfysniab3fqk31-libxml2-2.14.3"
             }
           ],
-          "store_path": "/nix/store/y9mb0jpx5gqndk3f94pi98y5is3sm8ra-libxml2-2.13.8-bin"
+          "store_path": "/nix/store/6y6sdd0y8dlg3q4h6cvgdgfx8vjlb2ks-libxml2-2.14.3-bin"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "bin",
-              "path": "/nix/store/2r937z8d8b7hdij3rnkjfg34s36j8nqv-libxml2-2.13.8-bin",
+              "path": "/nix/store/wyydvl61mvlfqq13hqcrpxx4c7v94253-libxml2-2.14.3-bin",
               "default": true
             },
             {
+              "name": "out",
+              "path": "/nix/store/zx59hayl9dghnl67pismhalfgzvvqc6b-libxml2-2.14.3"
+            },
+            {
               "name": "py",
-              "path": "/nix/store/ycs33rm2dpns5p44cs4207mjkcfg5cih-libxml2-2.13.8-py"
+              "path": "/nix/store/6afcliz6wxh59k3gh8aigrxxaw99fpvx-libxml2-2.14.3-py"
             },
             {
               "name": "dev",
-              "path": "/nix/store/xygznpa635x9lcfl7maiqcnhxymp2bzf-libxml2-2.13.8-dev"
+              "path": "/nix/store/d3rbllv9zll9p3q3v5k20s0w6nm53z4g-libxml2-2.14.3-dev"
             },
             {
               "name": "devdoc",
-              "path": "/nix/store/0j5c23nr10wxa62ign3pswpck6s6vv0q-libxml2-2.13.8-devdoc"
-            },
-            {
-              "name": "out",
-              "path": "/nix/store/lhwx7vs049wfpx8fr9xka4yjz3fpvyqx-libxml2-2.13.8"
+              "path": "/nix/store/swbrmh8c36anc2q22qqwx4ai32mlak18-libxml2-2.14.3-devdoc"
             }
           ],
-          "store_path": "/nix/store/2r937z8d8b7hdij3rnkjfg34s36j8nqv-libxml2-2.13.8-bin"
+          "store_path": "/nix/store/wyydvl61mvlfqq13hqcrpxx4c7v94253-libxml2-2.14.3-bin"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "bin",
-              "path": "/nix/store/y3cqr8jsqgnf916hpb2drn3c2bva877z-libxml2-2.13.8-bin",
+              "path": "/nix/store/qijsn2y0kf34mxk7dg27qg7h664ynb1g-libxml2-2.14.3-bin",
               "default": true
             },
             {
-              "name": "out",
-              "path": "/nix/store/b7xkqcgfnciqcbxshw8dfpbwhdxbhkf4-libxml2-2.13.8"
-            },
-            {
               "name": "dev",
-              "path": "/nix/store/38kag1n8z5ls74w066a6nxqa6bhz0hh2-libxml2-2.13.8-dev"
+              "path": "/nix/store/sj203gd37hkw8cp4q855072rxf03d67z-libxml2-2.14.3-dev"
             },
             {
               "name": "devdoc",
-              "path": "/nix/store/3wyjf8hgq4a4mq0xafv77gsv35p7z1nc-libxml2-2.13.8-devdoc"
+              "path": "/nix/store/vpsb6b0n07jaqyihbvi9n1lh5hvchvm2-libxml2-2.14.3-devdoc"
+            },
+            {
+              "name": "out",
+              "path": "/nix/store/mqx6bc3z8pdb13h9dryfhil1cy7rss7r-libxml2-2.14.3"
             }
           ],
-          "store_path": "/nix/store/y3cqr8jsqgnf916hpb2drn3c2bva877z-libxml2-2.13.8-bin"
+          "store_path": "/nix/store/qijsn2y0kf34mxk7dg27qg7h664ynb1g-libxml2-2.14.3-bin"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "bin",
-              "path": "/nix/store/pdnqlnvxiq1926kqjzxjln4d3147z54w-libxml2-2.13.8-bin",
+              "path": "/nix/store/743637kym8dg1vg7hlkjqyx70gknf5hq-libxml2-2.14.3-bin",
               "default": true
             },
             {
               "name": "py",
-              "path": "/nix/store/0kac7gpsh7fcj7q7nkwqk4p77ml5vaay-libxml2-2.13.8-py"
+              "path": "/nix/store/bls88vm03gna8ii69g3ljw22zygkl0yq-libxml2-2.14.3-py"
             },
             {
               "name": "dev",
-              "path": "/nix/store/cisb0723v3pgp74f2lj07z5d6w3j77sl-libxml2-2.13.8-dev"
+              "path": "/nix/store/rdnx32wkaz273f643sv1m1hbd5gh56bz-libxml2-2.14.3-dev"
             },
             {
               "name": "devdoc",
-              "path": "/nix/store/f557rgly3q4dfbdi0sahxr0wzndn1ril-libxml2-2.13.8-devdoc"
+              "path": "/nix/store/7wxadij9ybz0f5yz1lnf4fk7zm7avvks-libxml2-2.14.3-devdoc"
             },
             {
               "name": "out",
-              "path": "/nix/store/xv0pc5nc41v5vi0lac1i2d353s3rqlkm-libxml2-2.13.8"
+              "path": "/nix/store/izqbxvpsxw8b4r4arhlbkm48s3ghbddg-libxml2-2.14.3"
             }
           ],
-          "store_path": "/nix/store/pdnqlnvxiq1926kqjzxjln4d3147z54w-libxml2-2.13.8-bin"
+          "store_path": "/nix/store/743637kym8dg1vg7hlkjqyx70gknf5hq-libxml2-2.14.3-bin"
         }
       }
     },
@@ -453,51 +453,51 @@
         }
       }
     },
-    "static-web-server@2.36.1": {
-      "last_modified": "2025-05-16T20:19:48Z",
-      "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#static-web-server",
+    "static-web-server@2.37.0": {
+      "last_modified": "2025-06-20T02:24:11Z",
+      "resolved": "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb#static-web-server",
       "source": "devbox-search",
-      "version": "2.36.1",
+      "version": "2.37.0",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/708hz8pkiw08frwxxl4whrqzgsbwy6vg-static-web-server-2.36.1",
+              "path": "/nix/store/s1wba32r42ihkr7yqkk9qbjai5l227ls-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/708hz8pkiw08frwxxl4whrqzgsbwy6vg-static-web-server-2.36.1"
+          "store_path": "/nix/store/s1wba32r42ihkr7yqkk9qbjai5l227ls-static-web-server-2.37.0"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/310kkh8g4a36q0l2dcp467lnwy48iawk-static-web-server-2.36.1",
+              "path": "/nix/store/a2ykdv1zw8jgahv803x2xmd8s2g34cf1-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/310kkh8g4a36q0l2dcp467lnwy48iawk-static-web-server-2.36.1"
+          "store_path": "/nix/store/a2ykdv1zw8jgahv803x2xmd8s2g34cf1-static-web-server-2.37.0"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/ixjzp03hi3l54h8d5jsrn23pj9kdk529-static-web-server-2.36.1",
+              "path": "/nix/store/356q2mjwn2kw1d78l1hzsq75pnzzk49y-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/ixjzp03hi3l54h8d5jsrn23pj9kdk529-static-web-server-2.36.1"
+          "store_path": "/nix/store/356q2mjwn2kw1d78l1hzsq75pnzzk49y-static-web-server-2.37.0"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/m9ix5nadfzp0wxcgggxv463m9xsgwfk7-static-web-server-2.36.1",
+              "path": "/nix/store/z3mvzvb05pafmjaldq8h4g5j679bsnpn-static-web-server-2.37.0",
               "default": true
             }
           ],
-          "store_path": "/nix/store/m9ix5nadfzp0wxcgggxv463m9xsgwfk7-static-web-server-2.36.1"
+          "store_path": "/nix/store/z3mvzvb05pafmjaldq8h4g5j679bsnpn-static-web-server-2.37.0"
         }
       }
     }
