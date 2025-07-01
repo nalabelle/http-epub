@@ -29,9 +29,9 @@ repos:
       - id: shellcheck
   - repo: local
     hooks:
-      - id: cargo-test
-        name: cargo test
-        entry: cargo test
+      - id: cargo-check
+        name: cargo check
+        entry: cargo check
         language: system
         types: [rust]
         pass_filenames: false
@@ -39,6 +39,12 @@ repos:
         name: cargo clippy
         entry: cargo clippy
         args: ["--", "-D", "warnings"]
+        language: system
+        types: [rust]
+        pass_filenames: false
+      - id: cargo-test
+        name: cargo test
+        entry: cargo test
         language: system
         types: [rust]
         pass_filenames: false
